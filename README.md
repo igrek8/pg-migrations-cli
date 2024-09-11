@@ -6,6 +6,7 @@ Apply or revert migrations for PostgreSQL.
 
 - [PostgreSQL Migrator](#postgresql-migrator)
   - [Quick start](#quick-start)
+  - [Configuration](#configuration)
   - [Installation](#installation)
   - [Commands](#commands)
     - [Install](#install)
@@ -20,6 +21,25 @@ Apply or revert migrations for PostgreSQL.
 ```bash
 npx pgmcli -h
 ```
+
+## Configuration
+
+You can optionally create `.pgmcli`.
+
+```json
+{
+  "$schema": "https://raw.githubusercontent.com/igrek8/pgmcli/main/schema.json",
+  "user": "postgres",
+  "password": "postgres",
+  "db": "postgres"
+}
+```
+
+**Configuration order:**
+
+1. Command options
+2. Config file
+3. Environment variables
 
 ## Installation
 
@@ -38,18 +58,18 @@ yarn global add pgmcli
 ```
 Usage: pgmcli install [options]
 
-creates a migrations table, a directory and a config file
+Creates migrations directory and table
 
 Options:
-  --host <string>         postgres host (default: "localhost")
-  --port <number>         postgers port (default: 5432)
-  -u, --user <string>     postgres user (default: "postgres")
-  -p, --password <string>  postgers password
-  --db <name>             database name
-  --dir <name>            migrations directory (default: "migrations")
-  --table <name>          migrations table (default: "migrations")
-  --config <path>         config path (default: ".pgmcli")
-  -h, --help              display help for command
+  --host <string>          host (default: "localhost")
+  --port <number>          port (default: 5432)
+  -u, --user <string>      user (default: "postgres")
+  -p, --password <string>  password (default: "postgres")
+  --db <name>              database (default: "postgres")
+  --dir <name>             migrations directory (default: "migrations")
+  --table <name>           migrations table (default: "migrations")
+  --config <path>          config path (default: ".pgmcli")
+  -h, --help               display help for command
 ```
 
 ### Uninstall
@@ -57,18 +77,18 @@ Options:
 ```
 Usage: pgmcli uninstall [options]
 
-drops a migrations table
+Drops migrations table
 
 Options:
-  --host <string>         postgres host (default: "localhost")
-  --port <number>         postgers port (default: 5432)
-  -u, --user <string>     postgres user (default: "postgres")
-  -p, --password <string>  postgers password
-  --db <name>             database name
-  --dir <name>            migrations directory (default: "migrations")
-  --table <name>          migrations table (default: "migrations")
-  --config <path>         config path (default: ".pgmcli")
-  -h, --help              display help for command
+  --host <string>          host (default: "localhost")
+  --port <number>          port (default: 5432)
+  -u, --user <string>      user (default: "postgres")
+  -p, --password <string>  password (default: "postgres")
+  --db <name>              database (default: "postgres")
+  --dir <name>             migrations directory (default: "migrations")
+  --table <name>           migrations table (default: "migrations")
+  --config <path>          config path (default: ".pgmcli")
+  -h, --help               display help for command
 ```
 
 ### Create
@@ -76,15 +96,15 @@ Options:
 ```
 Usage: pgmcli create [options]
 
-creates a migration
+Creates a migration file
 
 Options:
-  --name <name>       migration file name (.ts, .js, .cjs, .mjs, .mts, .sql)
-  --plan              show plan
-  --dir <name>        migrations directory (default: "migrations")
-  --tag <tag>         tag where revert block begins (default: "REVERT BEGIN")
-  --config <path>     config path
-  -h, --help          display help for command
+  --name <name>    Migration file name (.ts, .js, .cjs, .mjs, .mts, .sql)
+  --plan           show plan
+  --dir <name>     Migrations directory (default: "migrations")
+  --tag <name>     Tag where revert block begins (default: "REVERT BEGIN")
+  --config <path>  Config path
+  -h, --help       display help for command
 ```
 
 ### Status
@@ -92,18 +112,18 @@ Options:
 ```
 Usage: pgmcli status [options]
 
-shows statuses of migrations
+Shows statuses of migrations
 
 Options:
-  --host <string>         postgres host (default: "localhost")
-  --port <number>         postgers port (default: 5432)
-  -u, --user <string>     postgres user (default: "postgres")
-  -p, --password <string>  postgers password
-  --db <name>             database name
-  --dir <name>            migrations directory (default: "migrations")
-  --table <name>          migrations table (default: "migrations")
-  --config <path>         config path (default: ".pgmcli")
-  -h, --help              display help for command
+  --host <string>          host (default: "localhost")
+  --port <number>          port (default: 5432)
+  -u, --user <string>      user (default: "postgres")
+  -p, --password <string>  password (default: "postgres")
+  --db <name>              database (default: "postgres")
+  --dir <name>             migrations directory (default: "migrations")
+  --table <name>           migrations table (default: "migrations")
+  --config <path>          config path (default: ".pgmcli")
+  -h, --help               display help for command
 ```
 
 ### Apply
@@ -111,23 +131,23 @@ Options:
 ```
 Usage: pgmcli apply [options]
 
-applies migrations
+Applies migrations
 
 Options:
-  --host <string>         postgres host (default: "localhost")
-  --port <number>         postgers port (default: 5432)
-  -u, --user <string>     postgres user (default: "postgres")
-  -p, --password <string>  postgers password
-  --db <name>             database name
-  --dir <name>            migrations directory (default: "migrations")
-  --table <name>          migrations table (default: "migrations")
-  --config <path>         config path (default: ".pgmcli")
-  -n <number>             apply "n" pending migrations (default: null)
-  --plan                  show plan
-  --log-level <level>     log level (choices: "DEBUG", "LOG", "INFO", "NOTICE", "WARNING", "ERROR", default: "log")
-  --meta <jsonb>          extra meta associated with apply
-  --tag <name>            tag where apply block ends (default: "REVERT BEGIN")
-  -h, --help              display help for command
+  --host <string>          host (default: "localhost")
+  --port <number>          port (default: 5432)
+  -u, --user <string>      user (default: "postgres")
+  -p, --password <string>  password (default: "postgres")
+  --db <name>              database (default: "postgres")
+  --dir <name>             migrations directory (default: "migrations")
+  --table <name>           migrations table (default: "migrations")
+  --config <path>          config path (default: ".pgmcli")
+  -n <number>              apply "n" pending migrations (default: null)
+  --plan                   show plan
+  --log-level <level>      log level (choices: "DEBUG", "LOG", "INFO", "NOTICE", "WARNING", "ERROR", default: "DEBUG")
+  --meta <jsonb>           extra meta associated with apply
+  --tag <name>             tag where apply block ends (default: "REVERT BEGIN")
+  -h, --help               display help for command
 ```
 
 ### Revert
@@ -135,20 +155,20 @@ Options:
 ```
 Usage: pgmcli revert [options]
 
-reverts migrations
+Reverts migrations
 
 Options:
-  --host <string>         postgres host (default: "localhost")
-  --port <number>         postgers port (default: 5432)
-  -u, --user <string>     postgres user (default: "postgres")
-  -p, --password <string>  postgers password
-  --db <name>             database name
-  --dir <name>            migrations directory (default: "migrations")
-  --table <name>          migrations table (default: "migrations")
-  --config <path>         config path (default: ".pgmcli")
-  -n <number>             revert "n" applied migrations (default: 1)
-  --plan                  show plan
-  --log-level <level>     log level (choices: "DEBUG", "LOG", "INFO", "NOTICE", "WARNING", "ERROR", default: "log")
-  --tag <name>            tag where revert block begins (default: "REVERT BEGIN")
-  -h, --help              display help for command
+  --host <string>          host (default: "localhost")
+  --port <number>          port (default: 5432)
+  -u, --user <string>      user (default: "postgres")
+  -p, --password <string>  password (default: "postgres")
+  --db <name>              database (default: "postgres")
+  --dir <name>             migrations directory (default: "migrations")
+  --table <name>           migrations table (default: "migrations")
+  --config <path>          config path (default: ".pgmcli")
+  -n <number>              Revert "n" applied migrations (default: 1)
+  --plan                   Show plan
+  --log-level <level>      log level (choices: "DEBUG", "LOG", "INFO", "NOTICE", "WARNING", "ERROR", default: "DEBUG")
+  --tag <name>             Tag where revert block begins (default: "REVERT BEGIN")
+  -h, --help               display help for command
 ```

@@ -2,8 +2,6 @@ import { strict as assert } from "assert";
 import { mkdir, writeFile } from "fs/promises";
 import { basename, dirname, extname, join } from "path";
 
-import { Config } from "../core/config.interface.js";
-
 const TS = `import type { Client } from "pg";
 
 export async function up(db: Client, _: { logLevel: string }) {
@@ -36,7 +34,7 @@ const CJS = `/**
  * @param {import('pg').Client} db
  * @param {{ logLevel: string }} options
  */
-async function up(db) {
+async function up(client) {
   console.log("Applying");
 }
 
@@ -44,7 +42,7 @@ async function up(db) {
  * @param {import('pg').Client} db
  * @param {{ logLevel: string }} options
  */
-async function down(db) {
+async function down(client) {
   console.log("Reverting");
 }
 
@@ -82,7 +80,7 @@ export interface CreateOptions {
 
 const extensions = Object.keys(templates).join(", ");
 
-export async function create(options: CreateOptions, _config?: Config) {
+export async function create(options: CreateOptions) {
   const fileExtension = extname(options.name);
   const fileName = basename(options.name, fileExtension);
   const fileContent = templates[fileExtension]?.replace("<revert_tag>", options.tag);

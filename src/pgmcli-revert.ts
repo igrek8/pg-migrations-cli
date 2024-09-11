@@ -2,7 +2,7 @@
 
 import { Option, program } from "commander";
 
-import { revert } from "./actions/revert.js";
+import { revert, type RevertOptions } from "./actions/revert.js";
 import { attachDefaultOptions } from "./core/attach-default-options.js";
 import { DEFAULT_LOG_LEVEL, DEFAULT_TAG } from "./core/constants.js";
 import { LogLevel } from "./core/logging.js";
@@ -16,10 +16,10 @@ const logLevel = new Option("--log-level <level>", "log level")
   .default(config?.logLevel ?? DEFAULT_LOG_LEVEL);
 
 attachDefaultOptions(program, config)
-  .description("reverts migrations")
-  .requiredOption("-n <number>", 'revert "n" applied migrations', parseInt, 1)
-  .option("--plan", "show plan")
+  .description("Reverts migrations")
+  .requiredOption("-n <number>", 'Revert "n" applied migrations', parseInt, 1)
+  .option("--plan", "Show plan")
   .addOption(logLevel)
-  .option("--tag <name>", "tag where revert block begins", config?.tag ?? DEFAULT_TAG)
-  .action(revert)
+  .option("--tag <name>", "Tag where revert block begins", config?.tag ?? DEFAULT_TAG)
+  .action((options: RevertOptions) => revert(options, config))
   .parse();

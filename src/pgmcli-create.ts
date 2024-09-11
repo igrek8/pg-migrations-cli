@@ -11,11 +11,11 @@ const extensions = Object.keys(templates).join(", ");
 const config = await resolveConfig(process.argv);
 
 program
-  .description("creates a migration")
-  .requiredOption("--name <name>", `migration file name (${extensions})`)
+  .description("Creates a migration file")
+  .requiredOption("--name <name>", `Migration file name (${extensions})`)
   .option("--plan", "show plan")
-  .requiredOption("--dir <name>", "migrations directory", config?.dir ?? DEFAULT_DIR)
-  .requiredOption("--tag <name>", "tag where revert block begins", config?.tag ?? DEFAULT_TAG)
-  .option("--config <path>", "config path")
+  .requiredOption("--dir <name>", "Migrations directory", config?.dir ?? DEFAULT_DIR)
+  .requiredOption("--tag <name>", "Tag where revert block begins", config?.tag ?? DEFAULT_TAG)
+  .option("--config <path>", "Config path")
   .action(create)
   .parse();

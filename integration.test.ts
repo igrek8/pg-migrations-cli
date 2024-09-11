@@ -9,8 +9,10 @@ import { status } from "./src/actions/status.js";
 import { uninstall } from "./src/actions/uninstall.js";
 import {
   DEFAULT_CONFIG_PATH,
+  DEFAULT_DB,
   DEFAULT_DIR,
   DEFAULT_HOST,
+  DEFAULT_PASSWORD,
   DEFAULT_PORT,
   DEFAULT_TABLE,
   DEFAULT_TAG,
@@ -36,8 +38,8 @@ const defaultOptions: DefaultCommandOptions = {
   host: process.env.POSTGRES_HOST ?? config?.host ?? DEFAULT_HOST,
   port: config?.port ?? DEFAULT_PORT,
   user: config?.user ?? DEFAULT_USER,
-  password: config?.password,
-  db: config?.db,
+  password: config?.password ?? DEFAULT_PASSWORD,
+  db: config?.db ?? DEFAULT_DB,
 };
 
 beforeAll(async () => {
@@ -78,26 +80,20 @@ test("integration test", async () => {
   await expect(exists("migrations"), "expected migrations table to exist").resolves.toBe(true);
 
   await expect(
-    create(
-      {
-        ...defaultOptions,
-        name: "migration_1.sql",
-        tag: DEFAULT_TAG,
-      },
-      config,
-    ),
+    create({
+      ...defaultOptions,
+      name: "migration_1.sql",
+      tag: DEFAULT_TAG,
+    }),
   ).resolves.not.toThrowError();
   expect(consoleInfo).toHaveBeenLastCalledWith(expect.stringContaining("migration_1.sql"));
 
   await expect(
-    create(
-      {
-        ...defaultOptions,
-        name: "migration_2.ts",
-        tag: DEFAULT_TAG,
-      },
-      config,
-    ),
+    create({
+      ...defaultOptions,
+      name: "migration_2.ts",
+      tag: DEFAULT_TAG,
+    }),
   ).resolves.not.toThrowError();
   expect(consoleInfo).toHaveBeenLastCalledWith(expect.stringContaining("migration_2.ts"));
 

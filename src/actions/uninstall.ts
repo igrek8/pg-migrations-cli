@@ -1,7 +1,7 @@
 import pg from "pg";
 
+import type { Config } from "../core/config.interface.js";
 import { DefaultCommandOptions } from "../core/default-command-options.interface.js";
-import { Config } from "../core/config.interface.js";
 
 export type UninstallOptions = DefaultCommandOptions;
 

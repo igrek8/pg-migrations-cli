@@ -10,6 +10,10 @@ export const DEFAULT_PORT = 5432;
 
 export const DEFAULT_USER = "postgres";
 
+export const DEFAULT_PASSWORD = "postgres";
+
+export const DEFAULT_DB = "postgres";
+
 export const DEFAULT_TABLE = "migrations";
 
 export const DEFAULT_TAG = "REVERT BEGIN";
